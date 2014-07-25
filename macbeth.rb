@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'nokogiri'
+
 class Macbeth
 
   attr_accessor :doc, :name_array, :sorted_list
