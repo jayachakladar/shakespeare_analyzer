@@ -15,7 +15,6 @@ class Macbeth
     @sorted_list.map{ |x| puts "#{x[1]} #{x[0]}"}
   end
 
-  private
   def count_lines
     b = Hash.new(0)
     @name_array.each{|v| b[v] += 1}
