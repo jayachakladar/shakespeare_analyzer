@@ -3,11 +3,10 @@ require 'nokogiri'
 
 class Macbeth
 
-  attr_accessor :doc, :name_array, :sorted_list
+  attr_accessor :doc, :sorted_list
 
   def initialize
     read_xml
-    find_actors
     count_lines
   end
 
@@ -17,17 +16,14 @@ class Macbeth
 
   def count_lines
     b = Hash.new(0)
-    @name_array.each{|v| b[v] += 1}
+    @doc.xpath("//SPEECH").each do |sp|
+      b[sp.css("SPEAKER").text] += sp.css("LINE").count
+    end
     @sorted_list = b.sort_by{|k,v| v}.reverse!
   end
 
 
   def read_xml
     @doc = Nokogiri::XML(open("http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml"))
-  end
-
-  def find_actors
-    @name_array = []
-    @doc.xpath("//SPEAKER").children.each{|x| @name_array << x.content()}
   end
 end

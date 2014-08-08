@@ -1,7 +1,7 @@
-require 'test/unit'
 require './macbeth.rb'
+require "minitest/autorun"
 
-class MacbethTest < Test::Unit::TestCase
+class MacbethTest < MiniTest::Unit::TestCase
   # this slows down run time though !
   def setup
    @@m = Macbeth.new
@@ -12,15 +12,12 @@ class MacbethTest < Test::Unit::TestCase
 
  def test_read_xml
    doc = @@m.read_xml
-   assert_not_nil doc
- end
-
- def test_find_actors
-
+   refute_nil doc
  end
 
  def test_count_line
-
+  assert_kind_of Array, @@m.sorted_list
+  assert_operator @@m.sorted_list.count, :>, 0
  end
 
 end
